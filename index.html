@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The AI Leadership Playbook | Intelligence for C-Level Executives</title>
+    <meta name="description" content="12 modules and 40 tools revealing how the AI industry actually works → from consultant extraction to vendor scoring systems. $5,200 for the intelligence you should have had.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================
+           CSS RESET & BASE
+           ============================================ */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #0A0A0C;
+            color: #FAFAFA;
+            line-height: 1.7;
+            font-size: 18px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111114;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C9A962;
+            border-radius: 3px;
+        }
+
+        /* ============================================
+           DESIGN TOKENS
+           ============================================ */
+        :root {
+            --bg-primary: #0A0A0C;
+            --bg-secondary: #111114;
+            --bg-tertiary: #18181B;
+
+            --accent-primary: #C9A962;
+            --accent-secondary: #8B7355;
+            --accent-hover: #D4B978;
+
+            --text-primary: #FAFAFA;
+            --text-secondary: #A1A1AA;
+            --text-tertiary: #71717A;
+            --text-muted: #52525B;
+
+            --success: #22C55E;
+            --alert: #DC2626;
+
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            --container-max: 1200px;
+            --section-padding: 120px;
+            --section-padding-mobile: 80px;
+        }
+
+        /* ============================================
+           TYPOGRAPHY
+           ============================================ */
+        h1, h2, h3 {
+            font-family: var(--font-serif);
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
+        .pre-header {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            letter-spacing: 0.3em;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .pre-header--gold {
+            color: var(--accent-primary);
+        }
+
+        /* ============================================
+           LAYOUT
+           ============================================ */
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        section {
+            padding: var(--section-padding) 0;
+        }
+
+        /* ============================================
+           BUTTONS
+           ============================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-sans);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            padding: 20px 48px;
+            border-radius: 2px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+        }
+
+        .btn--primary {
+            background: linear-gradient(135deg, #C9A962 0%, #8B7355 100%);
+            color: #0A0A0C;
+            box-shadow: 0 8px 32px rgba(201, 169, 98, 0.3);
+        }
+
+        .btn--primary:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+        }
+
+        .btn--secondary {
+            background: transparent;
+            border: 1px solid rgba(201, 169, 98, 0.5);
+            color: var(--accent-primary);
+        }
+
+        .btn--secondary:hover {
+            background: rgba(201, 169, 98, 0.1);
+        }
+
+        .btn--large {
+            padding: 24px 64px;
+            font-size: 18px;
+        }
+
+        .btn--full {
+            width: 100%;
+        }
+
+        /* ============================================
+           HEADER
+           ============================================ */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            background: rgba(10, 10, 12, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(201, 169, 98, 0.1);
+            z-index: 1000;
+            transition: background 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: var(--bg-primary);
+        }
+
+        .header__inner {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 5%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header__logo {
+            font-family: var(--font-serif);
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            color: var(--accent-primary);
+            text-decoration: none;
+        }
+
+        .header__cta {
+            font-family: var(--font-sans);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 12px 24px;
+            background: transparent;
+            border: 1px solid var(--accent-primary);
+            color: var(--accent-primary);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .header__cta:hover {
+            background: rgba(201, 169, 98, 0.15);
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 140px;
+            padding-bottom: 80px;
+            position: relative;
+            background:
+                radial-gradient(ellipse at center top, rgba(201, 169, 98, 0.05) 0%, transparent 50%),
+                linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        }
+
+        /* Subtle grid pattern */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(201, 169, 98, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201, 169, 98, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        .hero__content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            padding: 0 5%;
+        }
+
+        .hero__preheadline {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            letter-spacing: 0.2em;
+            color: var(--accent-primary);
+            margin-bottom: 32px;
+        }
+
+        .hero__headline {
+            font-family: var(--font-serif);
+            font-size: 72px;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            color: var(--text-primary);
+        }
+
+        .hero__subheadline {
+            font-size: 22px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            max-width: 680px;
+            margin: 32px auto 0;
+            line-height: 1.6;
+        }
+
+        .hero__price {
+            margin-top: 48px;
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .hero__price-amount {
+            font-family: var(--font-mono);
+            font-size: 48px;
+            font-weight: 500;
+            color: var(--accent-primary);
+        }
+
+        .hero__price-desc {
+            font-size: 16px;
+            color: var(--text-tertiary);
+        }
+
+        .hero__cta {
+            margin-top: 48px;
+        }
+
+        .hero__scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(201, 169, 98, 0.5);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* ============================================
+           TRUTH STATEMENT
+           ============================================ */
+        .truth {
+            background: var(--bg-secondary);
+            padding: 80px 0;
+            border-top: 1px solid rgba(201, 169, 98, 0.1);
+            border-bottom: 1px solid rgba(201, 169, 98, 0.1);
+            text-align: center;
+        }
+
+        .truth__statement {
+            font-family: var(--font-serif);
+            font-size: 32px;
+            font-weight: 400;
+            color: var(--text-primary);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .truth__response {
+            font-family: var(--font-sans);
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--accent-primary);
+            margin-top: 24px;
+        }
+
+        /* ============================================
+           MODULES SECTION
+           ============================================ */
+        .modules {
+            background: var(--bg-primary);
+        }
+
+        .modules__header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .modules__title {
+            font-size: 48px;
+            color: var(--text-primary);
+        }
+
+        .modules__subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 16px auto 0;
+        }
+
+        .modules__grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .module-card {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(201, 169, 98, 0.12);
+            border-left: 3px solid var(--accent-primary);
+            border-radius: 2px;
+            padding: 32px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            border-color: rgba(201, 169, 98, 0.3);
+            background: var(--bg-tertiary);
+            transform: translateX(4px);
+        }
+
+        .module-card.expanded {
+            border-color: rgba(201, 169, 98, 0.3);
+        }
+
+        .module-card__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .module-card__number {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            letter-spacing: 0.2em;
+            color: var(--accent-primary);
+            margin-bottom: 8px;
+        }
+
+        .module-card__title {
+            font-family: var(--font-serif);
+            font-size: 28px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .module-card__teaser {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .module-card__toggle {
+            font-size: 24px;
+            color: var(--accent-primary);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 16px;
+        }
+
+        .module-card.expanded .module-card__toggle {
+            transform: rotate(45deg);
+        }
+
+        .module-card__tools {
+            display: none;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .module-card.expanded .module-card__tools {
+            display: block;
+        }
+
+        .tool-item {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            padding-left: 20px;
+            border-left: 1px solid rgba(201, 169, 98, 0.3);
+            line-height: 1.6;
+        }
+
+        .tool-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .tool-item strong {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .modules__cta {
+            text-align: center;
+            margin-top: 64px;
+        }
+
+        .modules__summary {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        /* ============================================
+           STATS SECTION
+           ============================================ */
+        .stats {
+            background: var(--bg-primary);
+            border-top: 1px solid rgba(201, 169, 98, 0.1);
+        }
+
+        .stats__header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .stats__title {
+            font-size: 48px;
+            color: var(--text-primary);
+        }
+
+        .stats__subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-top: 16px;
+        }
+
+        .stats__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px;
+        }
+
+        .stat-card {
+            text-align: center;
+        }
+
+        .stat-card__number {
+            font-family: var(--font-mono);
+            font-size: 64px;
+            font-weight: 400;
+            color: var(--accent-primary);
+        }
+
+        .stat-card__label {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-top: 16px;
+        }
+
+        .stat-card__context {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            margin-top: 8px;
+            max-width: 250px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+
+        /* ============================================
+           ANTI-MARKETING SECTION
+           ============================================ */
+        .anti-marketing {
+            background: var(--bg-secondary);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .anti-marketing__headline {
+            font-family: var(--font-serif);
+            font-size: 36px;
+            color: var(--text-primary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .anti-marketing__text {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 24px auto 0;
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           COMPARISON SECTION
+           ============================================ */
+        .comparison {
+            background: var(--bg-primary);
+        }
+
+        .comparison__grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 64px;
+        }
+
+        .comparison__column h3 {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            letter-spacing: 0.3em;
+            margin-bottom: 32px;
+        }
+
+        .comparison__column--is h3 {
+            color: var(--accent-primary);
+        }
+
+        .comparison__column--isnt h3 {
+            color: var(--text-tertiary);
+        }
+
+        .comparison__list {
+            list-style: none;
+        }
+
+        .comparison__item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        .comparison__item-icon {
+            flex-shrink: 0;
+            font-size: 16px;
+        }
+
+        .comparison__column--is .comparison__item {
+            color: var(--text-primary);
+        }
+
+        .comparison__column--is .comparison__item-icon {
+            color: var(--accent-primary);
+        }
+
+        .comparison__column--isnt .comparison__item {
+            color: var(--text-secondary);
+        }
+
+        .comparison__column--isnt .comparison__item-icon {
+            color: var(--text-tertiary);
+        }
+
+        /* ============================================
+           PRICING SECTION
+           ============================================ */
+        .pricing {
+            background: var(--bg-secondary);
+            border-top: 1px solid rgba(201, 169, 98, 0.15);
+            border-bottom: 1px solid rgba(201, 169, 98, 0.15);
+            text-align: center;
+        }
+
+        .pricing__amount {
+            font-family: var(--font-mono);
+            font-size: 72px;
+            font-weight: 500;
+            color: var(--accent-primary);
+            margin-top: 32px;
+        }
+
+        .pricing__terms {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-top: 16px;
+        }
+
+        .pricing__context {
+            font-size: 17px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 40px auto 0;
+            line-height: 1.7;
+        }
+
+        .pricing__cta {
+            margin-top: 48px;
+        }
+
+        .pricing__note {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            margin-top: 16px;
+        }
+
+        /* ============================================
+           FAQ SECTION
+           ============================================ */
+        .faq {
+            background: var(--bg-primary);
+        }
+
+        .faq__container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq__title {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 24px 0;
+            cursor: pointer;
+        }
+
+        .faq-item__question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .faq-item__toggle {
+            font-size: 20px;
+            color: var(--accent-primary);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.expanded .faq-item__toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-item__answer {
+            display: none;
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            padding-top: 16px;
+        }
+
+        .faq-item.expanded .faq-item__answer {
+            display: block;
+        }
+
+        /* ============================================
+           FINAL CTA SECTION
+           ============================================ */
+        .final-cta {
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            padding: 160px 0;
+            text-align: center;
+        }
+
+        .final-cta__headline {
+            font-family: var(--font-serif);
+            font-size: 48px;
+            color: var(--text-primary);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.3;
+        }
+
+        .final-cta__subheadline {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-top: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .final-cta__button {
+            margin-top: 48px;
+        }
+
+        .final-cta__price {
+            font-family: var(--font-mono);
+            font-size: 24px;
+            color: var(--accent-primary);
+            margin-top: 24px;
+        }
+
+        .final-cta__note {
+            font-size: 16px;
+            color: var(--text-tertiary);
+            margin-top: 16px;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            background: var(--bg-primary);
+            padding: 64px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer__logo {
+            font-family: var(--font-serif);
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            color: var(--accent-primary);
+            margin-bottom: 24px;
+        }
+
+        .footer__legal {
+            font-size: 13px;
+            color: var(--text-muted);
+            max-width: 800px;
+            line-height: 1.6;
+        }
+
+        .footer__contact {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            margin-top: 24px;
+        }
+
+        /* ============================================
+           MODAL
+           ============================================ */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(201, 169, 98, 0.2);
+            max-width: 480px;
+            width: 100%;
+            padding: 48px;
+            border-radius: 2px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .modal__close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--text-tertiary);
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .modal__close:hover {
+            color: var(--text-primary);
+        }
+
+        .modal__header {
+            font-family: var(--font-serif);
+            font-size: 28px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .modal__subheader {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .modal__price-line {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .modal__price-label {
+            font-size: 16px;
+            color: var(--text-primary);
+        }
+
+        .modal__price-amount {
+            font-family: var(--font-mono);
+            font-size: 18px;
+            color: var(--accent-primary);
+        }
+
+        .modal__form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .modal__input {
+            background: var(--bg-tertiary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            padding: 16px;
+            font-family: var(--font-sans);
+            font-size: 16px;
+            border-radius: 2px;
+            transition: border-color 0.2s ease;
+        }
+
+        .modal__input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        .modal__input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .modal__submit {
+            margin-top: 8px;
+        }
+
+        .modal__security {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-tertiary);
+            margin-top: 16px;
+        }
+
+        .modal__fine-print {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        /* ============================================
+           SCROLL ANIMATIONS
+           ============================================ */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 1199px) {
+            :root {
+                --section-padding: 100px;
+            }
+
+            .hero__headline {
+                font-size: 56px;
+            }
+
+            .modules__grid {
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            :root {
+                --section-padding: 80px;
+            }
+
+            body {
+                font-size: 16px;
+            }
+
+            .header__cta {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 120px;
+            }
+
+            .hero__headline {
+                font-size: 42px;
+            }
+
+            .hero__subheadline {
+                font-size: 18px;
+            }
+
+            .hero__price-amount {
+                font-size: 36px;
+            }
+
+            .truth__statement {
+                font-size: 24px;
+            }
+
+            .modules__title,
+            .stats__title,
+            .final-cta__headline {
+                font-size: 32px;
+            }
+
+            .modules__grid {
+                grid-template-columns: 1fr;
+            }
+
+            .module-card__title {
+                font-size: 22px;
+            }
+
+            .stats__grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+
+            .stat-card__number {
+                font-size: 48px;
+            }
+
+            .comparison__grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .pricing__amount {
+                font-size: 56px;
+            }
+
+            .faq__title {
+                font-size: 28px;
+            }
+
+            .btn {
+                padding: 18px 32px;
+                font-size: 15px;
+            }
+
+            .btn--large {
+                padding: 20px 40px;
+                font-size: 16px;
+            }
+
+            .modal {
+                padding: 32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats__grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         HEADER
+         ============================================ -->
+    <header class="header" id="header">
+        <div class="header__inner">
+            <a href="#" class="header__logo">THE PLAYBOOK</a>
+            <button class="header__cta" onclick="openModal()">ACCESS THE PLAYBOOK</button>
+        </div>
+    </header>
+
+    <!-- ============================================
+         HERO SECTION
+         ============================================ -->
+    <section class="hero">
+        <div class="hero__content">
+            <div class="hero__preheadline fade-up">FOR C-LEVEL EXECUTIVES ONLY</div>
+            <h1 class="hero__headline fade-up">The Intelligence Your Consultants Have Been Selling Back to You</h1>
+            <p class="hero__subheadline fade-up">12 modules. 40 tools. The insider knowledge McKinsey associates share in private Slack channels 48 hours after leaving your building.</p>
+            <div class="hero__cta fade-up">
+                <button class="btn btn--primary" onclick="document.getElementById('modules').scrollIntoView({behavior: 'smooth'})">SEE WHAT'S INSIDE</button>
+            </div>
+        </div>
+        <div class="hero__scroll">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- ============================================
+         TRUTH STATEMENT
+         ============================================ -->
+    <section class="truth">
+        <div class="container">
+            <p class="truth__statement fade-up">You've spent $2M on consultants who benchmarked you against anonymized competitors. You've attended executive programs designed to keep you confused enough to re-enroll. You've read 47 AI newsletters that made you feel informed for exactly 4 hours.</p>
+            <p class="truth__response fade-up">This is different.</p>
+        </div>
+    </section>
+
+    <!-- ============================================
+         MODULES SECTION
+         ============================================ -->
+    <section class="modules" id="modules">
+        <div class="container">
+            <div class="modules__header">
+                <div class="pre-header fade-up">WHAT YOU'RE GETTING</div>
+                <h2 class="modules__title fade-up">12 Modules. 40 Tools. Zero Theory.</h2>
+                <p class="modules__subtitle fade-up">Each module exposes a specific system that's been extracting value from you. Each tool gives you the exact language, questions, or framework to flip it.</p>
+            </div>
+
+            <div class="modules__grid">
+                <!-- Module 1 -->
+                <div class="module-card fade-up" onclick="toggleModule(this)">
+                    <div class="module-card__header">
+                        <div>
+                            <div class="module-card__number">MODULE 01</div>
+                            <h3 class="module-card__title">The Consultant Extraction Lab</h3>
+                            <p class="module-card__teaser">How McKinsey mines your $600K engagement for competitor intelligence → and how to reverse it.</p>
+                        </div>
+                        <span class="module-card__toggle">+</span>
+                    </div>
+                    <div class="module-card__tools">
+                        <div class="tool-item"><strong>Tool 1.1: "The 48-Hour Window"</strong>  →  The 6 questions that pull competitor intel from associates before they sanitize it for the database.</div>
+                        <div class="tool-item"><strong>Tool 1.2: "The Deck Archaeology Method"</strong>  →  How to reverse-engineer which competitor each "anonymized" benchmarking column represents.</div>
+                        <div class="tool-item"><strong>Tool 1.3: "The Associate Drinking Game"</strong>  →  7 phrases that signal you don't know what you want (and trigger their scope expansion playbook).</div>
+                        <div class="tool-item"><strong>Tool 1.4: "The Partner Panic Protocol"</strong>  →  The one question that makes partners visibly uncomfortable: their production rate is 11%.</div>
+                    </div>
+                </div>
+
+                <!-- Module 2 -->
+                <div class="module-card fade-up" onclick="toggleModule(this)">
+                    <div class="module-card__header">
+                        <div>
+                            <div class="module-card__number">MODULE 02</div>
+                            <h3 class="module-card__title">The Executive Education Autopsy</h3>
+                            <p class="module-card__teaser">Stanford's AI programs have a 34% return enrollment rate. That's their business model.</p>
+                        </div>
+                        <span class="module-card__toggle">+</span>
+                    </div>
+                    <div class="module-card__tools">
+                        <div class="tool-item"><strong>Tool 2.1: "The Confusion-as-Product Model"</strong>  →  The 14 concepts they deliberately keep fuzzy because clarity kills return enrollment.</div>
+                        <div class="tool-item"><strong>Tool 2.2: "The Case Study Graveyard"</strong>  →  4 of the 6 standard case studies are publicly obsolete. Here are the PhD-level updates.</div>
+                    </div>
+                </div>
+
+                <!-- Module 3 -->
+                <div class="module-card fade-up" onclick="toggleModule(this)">
+                    <div class="module-card__header">
+                        <div>
+                            <div class="module-card__number">MODULE 03</div>
+                            <h3 class="module-card__title">The Content Diet Inversion</h3>
+                            <p class="module-card__teaser">The Rundown AI optimizes for a 4-hour 'informed feeling' decay. Here's how to step off the treadmill.</p>
+                        </div>
+                        <span class="module-card__toggle">+</span>
+                    </div>
+                    <div class="module-card__tools">
+                        <div class="tool-item"><strong>Tool 3.1: "The Engagement-Optimized Ignorance Model"</strong>  →  The 70/25/5 content structure that keeps you subscribed but never informed.</div>
+                        <div class="tool-item"><strong>Tool 3.2: "The a16z Counter-Intelligence Protocol"</strong>  →  How to use their click-tracking to see what other CEOs in your industry are exploring.</div>
+                        <div class="tool-item"><strong>Tool 3.3: "The CEO Information Diet"</strong>  →  CEOs with total AI clarity read 0.3 articles per month. Here's what they consume instead (15 min/week).</div>
+                    </div>
+                </div>
+
+                <!-- Module 4 -->
+                <div class="module-card fade-up" onclick="toggleModule(this)">
+                    <div class="module-card__header">
+                        <div>
+                            <div class="module-card__number">MODULE 04</div>
+                            <h3 class="module-card__title">The CAIO Reality Distortion Correction</h3>
+                            <p class="module-card__teaser">There's a term CAIOs use for CEOs who approve everything because they can't evaluate anything: 'green lighter.'</p>
+                        </div>
+                        <span class="module-card__toggle">+</span>
+                    </div>
+                    <div class="module-card__tools">
+                        <div class="tool-item"><strong>Tool 4.1: "The Resume-Building Budget"</strong>  →  The 5-question filter that exposes initiatives that are portfolio-builders for their next job.</div>
+                        <div class="tool-item"><strong>Tool 4.2: "The Conference Speaker Correlation"</strong>  →  78% correlation between CAIOs who speak at 2+ conferences and CAIOs whose initiatives fail.</div>
+                        <div class="tool-item"><strong>Tool 4.3: "The Demo Day Inversion"</strong>  →  Replace Demo Days with Kill Days. The format that shifts incentives from "impressive" to "defensible."</div>
+                        <div class="tool-item"><strong>Tool 4.4: "The CAIO Counter-Offer Insurance"</strong>  →  11 words that reframe the power dynamic when your CAIO says "I got an offer."</div>
+                    </div>
+                </div>
+
+                <!-- Module 5 -->
+                <div class="module-card fade-up" onclick="toggleModule(this)">
+                    <div class="module-card__header">
+                        <div>
+                            <div class="module-card__number">MODULE 05</div>
+                            <h3 class="module-card__title">The Pilot Purgatory Exorcism</h3>
+                            <p class="module-card__teaser">The average enterprise has 4.2 zombie pilots consuming $340K annually. 89% share one organizational dynamic.</p>
+                        </div>
+                        <span class="module-card__toggle">+</span>
+                    </div>
+                    <div class="module-card__tools">
+                        <div class="tool-item"><strong>Tool 5.1: "The Zombie Tell"</strong>  →  Pilots proposed by someone reporting to the approver have a 12% success rate. The 15-minute fix.</div>
+                        <div class="tool-item"><strong>Tool 5.2: "The Sunk Cost Circuit Breaker"</strong>  →  Pre-commitment language that specifies the exact date a pilot dies, regardless of proximity to success.</div>
+                        <div class="tool-item"><strong>Tool 5.3: "The Build Penalty Calculator"</strong>  →  Build has 33% success. Buy has 67%. But 71% try to build. The 20-minute CTO conversation.</div>
+                        <div class="tool-item"><strong>Tool 5.4: "The Pilot Success Theater Detection"</strong>  →  4 questions that are structurally un-bullshittable. They require numbers that don't exist unless progress happened.</div>
+                    </div>
+                </div>
+
+                <!-- Module 6 -->
+                <div class="module-card fade-up" onclick="toggleModule(this)">
+                    <div class="module-card__header">
+                        <div>
+                            <div class="module-card__number">MODULE 06</div>
+                            <h3 class="module-card__title">The Peer Network Intelligence Operation</h3>
+                            <p class="module-card__teaser">91% of CEO-to-CEO AI conversations contain verifiably false claims. Here are the tells.</p>
+                        </div>
+                        <span class="module-card__toggle">+</span>
+                    </div>
+                    <div class="module-card__tools">
+                        <div class="tool-item"><strong>Tool 6.1: "The Liar's Lexicon"</strong>  →  7 phrases that correlate at 94% with lying about AI progress. "We're pretty far along" is #1.</div>
+                        <div class="tool-item"><strong>Tool 6.2: "The Mutual Vulnerability Unlock"</strong>  →  The specific type of failure to share first that triggers reciprocity without making you look incompetent.</div>
+                        <div class="tool-item"><strong>Tool 6.3: "The Intelligence Debrief Protocol"</strong>  →  The 30-minute solo debrief that extracts 3-5 useful pieces from every peer conversation.</div>
+                    </div>
+                </div>
+
+                <!-- Module 7 -->
+                <div class="module-card fade-up" onclick="toggleModule(this)">
+                    <div class="module-card__header">
+                        <div>
+                            <div class="module-card__number">MODULE 07</div>
+                            <h3 class="module-card__title">The Vendor Honeypot Reversal</h3>
+                            <p class="module-card__teaser">AI vendors score prospects 1-5 in the first two meetings. Score 5 gets the B-team. Here's how to score yourself a 1.</p>
+                        </div>
+                        <span class="module-card__toggle">+</span>
+                    </div>
+                    <div class="module-card__tools">
+                        <div class="tool-item"><strong>Tool 7.1: "The Prospect Scoring Signals"</strong>  →  The 6 signals that determine priority. Most CEOs get 4 wrong. 10 minutes to learn the fixes.</div>
+                        <div class="tool-item"><strong>Tool 7.2: "The Demo Sabotage Detection"</strong>  →  8 words that get you the realistic demo instead of the rehearsed impressive one.</div>
+                        <div class="tool-item"><strong>Tool 7.3: "The Reference Call Squeeze"</strong>  →  The question sequence that makes prepped references go off-script.</div>
+                        <div class="tool-item"><strong>Tool 7.4: "The Contract Kill Clause"</strong>  →  Language that makes the "failure to meet success metrics" termination clause actually functional.</div>
+                    </div>
+                </div>
+
+                <!-- Module 8 -->
+                <div class="module-card fade-up" onclick="toggleModule(this)">
+                    <div class="module-card__header">
+                        <div>
+                            <div class="module-card__number">MODULE 08</div>
+                            <h3 class="module-card__title">The Board Aikido System</h3>
+                            <p class="module-card__teaser">VCs have internal CEO Bingo. 'Thoughtful approach' is on the card. Here's the non-bingo playbook.</p>
+                        </div>
+                        <span class="module-card__toggle">+</span>
+                    </div>
+                    <div class="module-card__tools">
+                        <div class="tool-item"><strong>Tool 8.1: "The Bingo Card Inversion"</strong>  →  12 phrases that make VCs put chips down, and 12 replacements that make them put phones down.</div>
+                        <div class="tool-item"><strong>Tool 8.2: "The Technical Question Redirect"</strong>  →  How to redirect without deferring to your CTO (that signals abdication). 2-minute language pattern.</div>
+                        <div class="tool-item"><strong>Tool 8.3: "The Ultimatum Counter-Play"</strong>  →  When Sarah says "prove me wrong in two quarters," she wants a specific performance. Here's the formula.</div>
+                        <div class="tool-item"><strong>Tool 8.4: "The Board Narrative Pre-Emption"</strong>  →  The 4-paragraph email, 72 hours before meetings, that makes challenging questions look dumb.</div>
+                    </div>
+                </div>
+
+                <!-- Module 9 -->
+                <div class="module-card fade-up" onclick="toggleModule(this)">
+                    <div class="module-card__header">
+                        <div>
+                            <div class="module-card__number">MODULE 09</div>
+                            <h3 class="module-card__title">The CTO Translation Layer</h3>
+                            <p class="module-card__teaser">It's 2026. Too late for 'nod meetings'.</p>
+                        </div>
+                        <span class="module-card__toggle">+</span>
+                    </div>
+                    <div class="module-card__tools">
+                        <div class="tool-item"><strong>Tool 9.1: "The Nod Detector"</strong>  →  Stop your CTO from nodding at something that doesn't make sense.</div>
+                        <div class="tool-item"><strong>Tool 9.2: "The Technical Abstraction Request"</strong>  →  "Walk me through the board version." Your CTO has one. She just doesn't use it unprompted.</div>
+                        <div class="tool-item"><strong>Tool 9.3: "The Accountability Without Expertise Framework"</strong>  →  4 outcome-based metrics that work across any AI initiative.</div>
+                    </div>
+                </div>
+
+                <!-- Module 10 -->
+                <div class="module-card fade-up" onclick="toggleModule(this)">
+                    <div class="module-card__header">
+                        <div>
+                            <div class="module-card__number">MODULE 10</div>
+                            <h3 class="module-card__title">The 2:47 AM Solution</h3>
+                            <p class="module-card__teaser">312 CEOs. The ones who sleep have one thing in common.</p>
+                        </div>
+                        <span class="module-card__toggle">+</span>
+                    </div>
+                    <div class="module-card__tools">
+                        <div class="tool-item"><strong>Tool 10.1: "The Dread Disassembly Protocol"</strong>  →  15 minutes Sunday evening. Turn the blob of dread into a 4-7 item to-do list.</div>
+                        <div class="tool-item"><strong>Tool 10.2: "The Decision Velocity Threshold"</strong>  →  More than 3 pending AI decisions triggers "unmanageable." The weekly triage protocol.</div>
+                        <div class="tool-item"><strong>Tool 10.3: "The Completion Ritual"</strong>  →  45 minutes Friday. Artificial completion states that give your brain the "finished" signal.</div>
+                    </div>
+                </div>
+
+                <!-- Module 11 -->
+                <div class="module-card fade-up" onclick="toggleModule(this)">
+                    <div class="module-card__header">
+                        <div>
+                            <div class="module-card__number">MODULE 11</div>
+                            <h3 class="module-card__title">The Capability Bridge</h3>
+                            <p class="module-card__teaser">Counterintuitive finding: CEOs who understand AI more make worse AI decisions. The winning quadrant is different.</p>
+                        </div>
+                        <span class="module-card__toggle">+</span>
+                    </div>
+                    <div class="module-card__tools">
+                        <div class="tool-item"><strong>Tool 11.1: "The Intentional Ignorance Protocol"</strong>  →  7 things you should never learn about AI. Learning them makes you second-guess correctly.</div>
+                        <div class="tool-item"><strong>Tool 11.2: "The Strategic Question Library"</strong>  →  23 questions that matter for CEO-level AI decisions. Technical knowledge irrelevant to all 23.</div>
+                        <div class="tool-item"><strong>Tool 11.3: "The Translation Layer Installation"</strong>  →  A specific weekly 30-minute meeting format that connects technical knowledge to strategic judgment.</div>
+                    </div>
+                </div>
+
+                <!-- Module 12 -->
+                <div class="module-card fade-up" onclick="toggleModule(this)">
+                    <div class="module-card__header">
+                        <div>
+                            <div class="module-card__number">MODULE 12</div>
+                            <h3 class="module-card__title">The Pattern Interrupt</h3>
+                            <p class="module-card__teaser">94% of CEOs follow the same failing path. The 6% who broke it did one thing differently in week one.</p>
+                        </div>
+                        <span class="module-card__toggle">+</span>
+                    </div>
+                    <div class="module-card__tools">
+                        <div class="tool-item"><strong>Tool 12.1: "The Wrong Question Diagnosis"</strong>  →  You've been answering "How do I understand AI?" Wrong question. 15-minute reframe.</div>
+                        <div class="tool-item"><strong>Tool 12.2: "The Expertise Inversion"</strong>  →  Your 32 years are an asset. You've been competing on the 10% where you'll always lose.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modules__cta">
+                <p class="modules__summary fade-up">12 modules. 40 tools. Not theory. Not jargon. Weapons.</p>
+                <button class="btn btn--primary fade-up" onclick="openModal()">ACCESS THE FULL PLAYBOOK  →  $5,200</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         STATS SECTION
+         ============================================ -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats__header">
+                <div class="pre-header fade-up">THE RESEARCH</div>
+                <h2 class="stats__title fade-up">Not Claims. Numbers.</h2>
+                <p class="stats__subtitle fade-up">Every module is built on specific research. Here's a sample.</p>
+            </div>
+
+            <div class="stats__grid">
+                <div class="stat-card fade-up">
+                    <div class="stat-card__number" data-count="11">0%</div>
+                    <div class="stat-card__label">AI initiatives reaching production</div>
+                    <div class="stat-card__context">McKinsey's internal rate. They quote different numbers in pitches.</div>
+                </div>
+
+                <div class="stat-card fade-up">
+                    <div class="stat-card__number" data-count="91">0%</div>
+                    <div class="stat-card__label">CEO conversations with false claims</div>
+                    <div class="stat-card__context">YPO AI event research. The tells are consistent.</div>
+                </div>
+
+                <div class="stat-card fade-up">
+                    <div class="stat-card__number" data-count="4.2" data-decimal="true">0</div>
+                    <div class="stat-card__label">Zombie pilots per enterprise</div>
+                    <div class="stat-card__context">Gartner internal data. Average cost: $340K annually.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         ANTI-MARKETING SECTION
+         ============================================ -->
+    <section class="anti-marketing">
+        <div class="container">
+            <h2 class="anti-marketing__headline fade-up">You don't need to be convinced. You need to be informed.</h2>
+            <p class="anti-marketing__text fade-up">There are no countdown timers on this page. No 'limited spots remaining.' No testimonials from people whose businesses you've never heard of. You have money. You're intelligent. You just need to know exactly what you're getting. Now you do.</p>
+        </div>
+    </section>
+
+    <!-- ============================================
+         COMPARISON SECTION
+         ============================================ -->
+    <section class="comparison">
+        <div class="container">
+            <div class="comparison__grid">
+                <div class="comparison__column comparison__column--is">
+                    <h3 class="fade-up">THIS IS</h3>
+                    <ul class="comparison__list">
+                        <li class="comparison__item fade-up">
+                            <span class="comparison__item-icon"> → </span>
+                            <span>40 specific tools with exact language, questions, and frameworks you can use this week.</span>
+                        </li>
+                        <li class="comparison__item fade-up">
+                            <span class="comparison__item-icon"> → </span>
+                            <span>Research-backed insider access to how the AI industry actually works → from consultant incentives to vendor scoring systems.</span>
+                        </li>
+                        <li class="comparison__item fade-up">
+                            <span class="comparison__item-icon"> → </span>
+                            <span>A permanent reference you own forever. No subscription. No community you'll forget to check.</span>
+                        </li>
+                        <li class="comparison__item fade-up">
+                            <span class="comparison__item-icon"> → </span>
+                            <span>The translation layer between 'I don't understand AI' and 'I make good AI decisions.'</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="comparison__column comparison__column--isnt">
+                    <h3 class="fade-up">THIS ISN'T</h3>
+                    <ul class="comparison__list">
+                        <li class="comparison__item fade-up">
+                            <span class="comparison__item-icon">✕</span>
+                            <span>A program teaching you how neural networks work. (You shouldn't learn that. It makes your decisions worse.)</span>
+                        </li>
+                        <li class="comparison__item fade-up">
+                            <span class="comparison__item-icon">✕</span>
+                            <span>Theory, case studies, or 'frameworks' from consultants recycling your competitors' strategies back to you.</span>
+                        </li>
+                        <li class="comparison__item fade-up">
+                            <span class="comparison__item-icon">✕</span>
+                            <span>Anything that requires ongoing time investment. Read it once. Reference when needed. That's it.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         PRICING SECTION
+         ============================================ -->
+    <section class="pricing">
+        <div class="container">
+            <div class="pre-header fade-up">INVESTMENT</div>
+            <div class="pricing__amount fade-up">$5,200</div>
+            <p class="pricing__terms fade-up">One-time payment. Lifetime access. No subscription.</p>
+            <p class="pricing__context fade-up">A single McKinsey engagement costs $600K and leaves you with benchmarking data they've already sold to your competitors. Stanford's executive AI program is $25K for curriculum designed to keep you confused enough to re-enroll. This is $5,200 for the intelligence you should have had before either.</p>
+            <div class="pricing__cta fade-up">
+                <button class="btn btn--primary" onclick="openModal()">ACCESS THE PLAYBOOK NOW</button>
+            </div>
+            <p class="pricing__note fade-up">Instant access to document upon payment.</p>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FAQ SECTION
+         ============================================ -->
+    <section class="faq">
+        <div class="container">
+            <div class="faq__container">
+                <h2 class="faq__title fade-up">Practical Questions</h2>
+
+                <div class="faq-item fade-up" onclick="toggleFaq(this)">
+                    <div class="faq-item__question">
+                        <span>What format is this delivered in?</span>
+                        <span class="faq-item__toggle">+</span>
+                    </div>
+                    <div class="faq-item__answer">Document for offline reading. No login required. No app to download.</div>
+                </div>
+
+                <div class="faq-item fade-up" onclick="toggleFaq(this)">
+                    <div class="faq-item__question">
+                        <span>Is there a refund policy?</span>
+                        <span class="faq-item__toggle">+</span>
+                    </div>
+                    <div class="faq-item__answer">No. You're buying information, not a service. The table of contents and module descriptions above tell you exactly what you're getting. If that's valuable to you, buy it. If not, don't.</div>
+                </div>
+
+                <div class="faq-item fade-up" onclick="toggleFaq(this)">
+                    <div class="faq-item__question">
+                        <span>Is this a course or a community?</span>
+                        <span class="faq-item__toggle">+</span>
+                    </div>
+                    <div class="faq-item__answer">Neither. It's documentation. 12 modules, 40 tools, all written. No videos you have to sit through. No community you have to engage with. Read it, use it, reference it when needed.</div>
+                </div>
+
+                <div class="faq-item fade-up" onclick="toggleFaq(this)">
+                    <div class="faq-item__question">
+                        <span>Who is this for?</span>
+                        <span class="faq-item__toggle">+</span>
+                    </div>
+                    <div class="faq-item__answer">C-level executives at companies where AI decisions are being made. If you're not in a position where McKinsey is pitching you, or your CAIO is presenting to you, this probably isn't for you.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FINAL CTA SECTION
+         ============================================ -->
+    <section class="final-cta">
+        <div class="container">
+            <h2 class="final-cta__headline fade-up">The next board meeting is coming.<br>The next CAIO proposal is coming.<br>The next consultant pitch is coming.</h2>
+            <p class="final-cta__subheadline fade-up">This time, you'll have the questions they don't expect.</p>
+            <div class="final-cta__button fade-up">
+                <button class="btn btn--primary btn--large" onclick="openModal()">ACCESS THE AI LEADERSHIP PLAYBOOK</button>
+            </div>
+            <div class="final-cta__price fade-up">$5,200</div>
+            <p class="final-cta__note fade-up">Instant access. Lifetime ownership. No subscription.</p>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__logo">THE AI LEADERSHIP PLAYBOOK</div>
+            <p class="footer__legal">Results described in this document are based on specific research and may not be representative of all situations. The tools and frameworks provided are for informational purposes. No guarantee of specific business outcomes is made or implied. By purchasing, you acknowledge that this is an information product with no refund policy. © 2026. All rights reserved.</p>
+            <p class="footer__contact">Questions before purchasing: aria@scaledintel.com</p>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         PAYMENT MODAL
+         ============================================ -->
+    <div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+        <div class="modal">
+            <button class="modal__close" onclick="closeModal()">✕</button>
+            <h2 class="modal__header">Complete Your Access</h2>
+            <p class="modal__subheader">The AI Leadership Playbook</p>
+
+            <div class="modal__price-line">
+                <span class="modal__price-label">Full Access</span>
+                <span class="modal__price-amount">$5,200</span>
+            </div>
+
+            <form class="modal__form" onsubmit="handleSubmit(event)">
+                <input type="email" class="modal__input" placeholder="Email address" required>
+                <input type="text" class="modal__input" placeholder="Name on card" required>
+                <input type="text" class="modal__input" placeholder="Card number" required>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <input type="text" class="modal__input" placeholder="MM / YY" required>
+                    <input type="text" class="modal__input" placeholder="CVC" required>
+                </div>
+                <button type="submit" class="btn btn--primary btn--full modal__submit">PAY $5,200 AND ACCESS</button>
+            </form>
+
+            <div class="modal__security">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <span>Secured by Stripe. Your payment information is encrypted.</span>
+            </div>
+
+            <p class="modal__fine-print">By completing this purchase, you agree to the terms. No refunds.</p>
+        </div>
+    </div>
+
+    <!-- ============================================
+         JAVASCRIPT
+         ============================================ -->
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll reveal animations
+        const fadeElements = document.querySelectorAll('.fade-up');
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 50);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        fadeElements.forEach(el => observer.observe(el));
+
+        // Module accordion
+        function toggleModule(card) {
+            card.classList.toggle('expanded');
+        }
+
+        // FAQ accordion
+        function toggleFaq(item) {
+            item.classList.toggle('expanded');
+        }
+
+        // Modal functions
+        function openModal() {
+            document.getElementById('modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function closeModalOutside(event) {
+            if (event.target === document.getElementById('modal')) {
+                closeModal();
+            }
+        }
+
+        // Form submit handler (placeholder)
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('Payment processing would be handled here via Stripe integration.');
+        }
+
+        // Number counter animation
+        const statNumbers = document.querySelectorAll('.stat-card__number[data-count]');
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseFloat(el.dataset.count);
+                    const isDecimal = el.dataset.decimal === 'true';
+                    const duration = 1500;
+                    const startTime = performance.now();
+
+                    function updateCounter(currentTime) {
+                        const elapsed = currentTime - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+
+                        // Ease out expo
+                        const easeProgress = 1 - Math.pow(1 - progress, 3);
+                        const current = target * easeProgress;
+
+                        if (isDecimal) {
+                            el.textContent = current.toFixed(1);
+                        } else {
+                            el.textContent = Math.floor(current) + '%';
+                        }
+
+                        if (progress < 1) {
+                            requestAnimationFrame(updateCounter);
+                        }
+                    }
+
+                    requestAnimationFrame(updateCounter);
+                    counterObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        statNumbers.forEach(el => counterObserver.observe(el));
+
+        // Escape key to close modal
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
