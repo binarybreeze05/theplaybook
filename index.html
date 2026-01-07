@@ -11,6 +11,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+    <!-- Analytics - Replace YOUR_DOMAIN with scaledintel.com after setting up Plausible -->
+    <script defer data-domain="YOUR_DOMAIN" src="https://plausible.io/js/script.js"></script>
+    <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+    <!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-ZUBnbD8fjc8Yx8JgIn8qY.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+
+
     <style>
         /* ============================================
            CSS RESET & BASE
@@ -1570,7 +1581,7 @@
 
         // Modal functions
         function openModal() {
-            window.location.href = 'https://buy.stripe.com/eVq8wP2oPdJ89ibfWqdnW02';
+            window.location.href = 'https://buy.stripe.com/7sYdR94wX7kKamf25AdnW01';
         }
 
         function closeModal() {
@@ -1634,6 +1645,109 @@
             if (e.key === 'Escape') {
                 closeModal();
             }
+        });
+
+        // ============================================
+        // ANALYTICS TRACKING
+        // ============================================
+
+        // Track scroll depth
+        let scrollDepthTracked = { 25: false, 50: false, 75: false, 100: false };
+
+        window.addEventListener('scroll', () => {
+            const scrollPercentage = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100;
+
+            if (scrollPercentage >= 25 && !scrollDepthTracked[25]) {
+                scrollDepthTracked[25] = true;
+                plausible('Scroll Depth', { props: { depth: '25%' } });
+            }
+            if (scrollPercentage >= 50 && !scrollDepthTracked[50]) {
+                scrollDepthTracked[50] = true;
+                plausible('Scroll Depth', { props: { depth: '50%' } });
+            }
+            if (scrollPercentage >= 75 && !scrollDepthTracked[75]) {
+                scrollDepthTracked[75] = true;
+                plausible('Scroll Depth', { props: { depth: '75%' } });
+            }
+            if (scrollPercentage >= 95 && !scrollDepthTracked[100]) {
+                scrollDepthTracked[100] = true;
+                plausible('Scroll Depth', { props: { depth: '100%' } });
+            }
+        });
+
+        // Track time on page milestones
+        let timeTracked = { 30: false, 60: false, 120: false, 300: false };
+
+        setTimeout(() => {
+            if (!timeTracked[30]) {
+                timeTracked[30] = true;
+                plausible('Time on Page', { props: { duration: '30 seconds' } });
+            }
+        }, 30000);
+
+        setTimeout(() => {
+            if (!timeTracked[60]) {
+                timeTracked[60] = true;
+                plausible('Time on Page', { props: { duration: '1 minute' } });
+            }
+        }, 60000);
+
+        setTimeout(() => {
+            if (!timeTracked[120]) {
+                timeTracked[120] = true;
+                plausible('Time on Page', { props: { duration: '2 minutes' } });
+            }
+        }, 120000);
+
+        setTimeout(() => {
+            if (!timeTracked[300]) {
+                timeTracked[300] = true;
+                plausible('Time on Page', { props: { duration: '5 minutes' } });
+            }
+        }, 300000);
+
+        // Enhanced module accordion with tracking
+        function toggleModule(card) {
+            const wasExpanded = card.classList.contains('expanded');
+            card.classList.toggle('expanded');
+
+            // Track module expansion
+            if (!wasExpanded) {
+                const moduleNumber = card.querySelector('.module-card__number').textContent;
+                const moduleTitle = card.querySelector('.module-card__title').textContent;
+                plausible('Module Expanded', {
+                    props: {
+                        module: moduleNumber,
+                        title: moduleTitle
+                    }
+                });
+            }
+        }
+
+        // Enhanced FAQ accordion with tracking
+        function toggleFaq(item) {
+            const wasExpanded = item.classList.contains('expanded');
+            item.classList.toggle('expanded');
+
+            // Track FAQ expansion
+            if (!wasExpanded) {
+                const question = item.querySelector('.faq-item__question span').textContent;
+                plausible('FAQ Expanded', { props: { question: question } });
+            }
+        }
+
+        // Enhanced modal function with tracking
+        function openModal() {
+            plausible('CTA Clicked', { props: { location: 'Primary CTA' } });
+            window.location.href = 'https://buy.stripe.com/7sYdR94wX7kKamf25AdnW01';
+        }
+
+        // Track all CTA button clicks
+        document.querySelectorAll('.btn--primary').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const location = button.textContent.trim().substring(0, 30); // First 30 chars
+                plausible('CTA Clicked', { props: { location: location } });
+            });
         });
     </script>
 </body>
